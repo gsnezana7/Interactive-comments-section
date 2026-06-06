@@ -1,0 +1,340 @@
+
+:root {
+  --font-family: "Rubik";
+  --font-size: 1rem;
+
+  --Purple-600: hsl(238, 40%, 52%);
+  --Pink-400: hsl(358, 79%, 66%);
+  --Purple-200: hsl(239, 57%, 85%);
+  --Pink-200: hsl(357, 100%, 86%);
+  --Grey-800: hsl(212, 24%, 26%);
+  --Grey-500: hsl(211, 10%, 45%);
+  --Grey-100: hsl(223, 19%, 93%);
+  --Grey-50: hsl(228, 33%, 97%);
+  --White: hsl(0, 100%, 100%);
+}
+
+@font-face {
+  font-family: "Rubik";
+
+  src: url("fonts/Rubik-VariableFont_wght.woff2") format("woff2-variations"),
+  url("fonts/Rubik-VariableFont_wght.woff2") format("woff2"),
+  url("fonts/Rubik-VariableFont_wght.woff") format("woff");
+  font-display: swap;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn-reset {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.list-reset {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: var(--font-family), sans-serif;
+  font-size: var(--font-size);
+  color: var(--Grey-500);
+  background-color: var(--Grey-50);
+}
+
+.container {
+  padding-inline: 1.13rem;
+}
+
+.comments-wrapper {
+  max-width: 45.625rem; /* Это примерно 730px — идеальная ширина для этого макета */
+
+  padding-block: 2rem;  /* Добавим отступы сверху и снизу всей страницы */
+}
+
+/* Карточка комментария */
+.comment {
+  display: grid;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: .5rem;
+  background-color: var(--White);
+
+  grid-template-columns: 1fr 1fr; /* Две равные колонки для подвала */
+  grid-template-areas: "header header"  /* Шапка на всю ширину */
+  "text text"      /* Текст на всю ширину */
+  "rating actions"; /* Рейтинг слева, кнопки справа */
+  gap: 1rem;
+}
+
+/* Привязываем элементы к их областям в сетке */
+.comment__content {
+  grid-area: text;
+}
+
+/* Внутри контента сделаем флекс для шапки, чтобы аватар, ник и дата встали в ряд */
+.comment__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  gap: 1rem;
+}
+
+.comment__avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.comment__username {
+  font-weight: 500;
+  color: var(--Grey-800);
+}
+
+.comment__date {
+  color: var(--Grey-500);
+}
+
+.comment__text {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--Grey-500);
+}
+
+/* Распределяем подвал */
+.comment__rating {
+  grid-area: rating;
+  justify-self: start; /* Прижимаем к левому краю */
+}
+
+.comment__actions {
+  grid-area: actions;
+  justify-self: end; /* Прижимаем к правому краю */
+}
+
+/* Блок рейтинга */
+.rating {
+  display: flex;
+  align-items: center;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  background-color: var(--Grey-50); /* Светло-серый фон плашки */
+
+  gap: .8rem;
+}
+
+/* Кнопки плюс и минус */
+.rating__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  transition: opacity .2s ease;
+}
+
+/* Эффект наведения на кнопки лайков */
+.rating__btn:hover {
+  opacity: .7;
+}
+
+/* Цифра рейтинга (количество лайков) */
+.rating__value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--Purple-600); /* Фиолетовый цвет для цифры */
+}
+
+/* Кнопка Reply */
+.comment__btn--reply {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--Purple-600); /* Фиолетовый текст */
+  transition: color .2s ease;
+
+  gap: .5rem;
+}
+
+/* Эффект при наведении на Reply */
+.comment__btn--reply:hover {
+  color: var(--Purple-200); /* Становится светлее */
+}
+
+.add-comment__btn-send {
+  padding: .75rem 1.875rem; /* Это 12px сверху/снизу и 30px по бокам */
+  font-size: 1rem;
+  font-weight: 500; /* Делает текст кнопки более четким */
+  color: var(--White);
+  text-transform: uppercase; /* На случай, если в HTML случайно напишете строчными */
+  border-radius: .5rem; /* 8px-10px — визуально идеально для этого макета */
+  background-color: var(--Purple-600);
+  transition: background-color .2s ease; /* Плавный переход цвета */
+}
+
+/* Эффект при наведении мышки */
+.add-comment__btn-send:hover {
+  background-color: var(--Purple-200); /* Кнопка становится нежно-фиолетовой */
+}
+
+/* Контейнер формы добавления комментария */
+.add-comment {
+  display: grid;
+  align-items: center; /* Выравниваем аватарку и кнопку по вертикали */
+  padding: 1.5rem;
+  border-radius: .5rem;
+  background-color: var(--White);
+
+  grid-template-columns: 1fr 1fr; /* Две колонки для нижнего ряда */
+  grid-template-areas: "textarea textarea" /* Текстовое поле на всю ширину сверху */
+  "avatar   button";   /* Аватарка снизу слева, кнопка снизу справа */
+  gap: 1rem;
+}
+
+/* Привязываем элементы к сетке */
+.add-comment__input {
+  padding: .75rem 1rem;
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--Grey-800);
+  border: 1px solid var(--Grey-100); /* Тонкая серая рамка */
+  border-radius: .5rem;
+  outline: none;
+  background-color: var(--White);
+  resize: vertical; /* Разрешаем растягивать поле только по вертикали */
+  transition: border-color .2s ease;
+
+  grid-area: textarea;
+}
+
+/* Эффект, когда пользователь кликает внутрь текстового поля (Фокус) */
+.add-comment__input:focus {
+  border-color: var(--Purple-600); /* Рамка становится фиолетовой */
+}
+
+.add-comment__avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+
+  grid-area: avatar;
+  justify-self: start; /* Прижимаем влево */
+}
+
+.add-comment__btn-send {
+  grid-area: button;
+  justify-self: end; /* Прижимаем вправо */
+}
+
+/* Контейнер для вложенных ответов */
+.comment-branch__replies {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  margin-left: 1rem; /* Отступ линии от левого края страницы */
+  padding-left: 1rem; /* Смещение всей ветки ответов вправо */
+  border-left: 2px solid var(--Grey-100); /* Та самая вертикальная серая линия */
+}
+
+/* Немного уменьшим отступ снизу у карточек внутри ответов, чтобы они стояли плотнее */
+.comment-branch__replies .comment {
+  margin-bottom: 1rem;
+}
+
+/* Удалим нижний маргин у самого последнего ответа в ветке */
+.comment-branch__replies .comment:last-child {
+  margin-bottom: 0;
+}
+
+/* --- СТИЛИ ДЛЯ ДЕСКТОПА (Экраны от 768px и шире) --- */
+@media (min-width: 48rem) {
+  /* 48rem — это 768px */
+
+  /* Перестраиваем сетку карточки в один ряд */
+  .comment {
+    padding: 1.5rem;
+
+    grid-template-columns: auto 1fr auto; /* Колонка для лайков, колонка для текста, колонка для кнопок */
+    grid-template-areas: "rating text actions"; /* Все элементы встают в одну линию */
+    gap: 1.5rem;
+  }
+
+  /* Переносим рейтинг в левый бок и делаем его вертикальным */
+  .comment__rating {
+    flex-direction: column; /* Элементы внутри плашки встают друг под друга */
+    padding: .75rem .5rem;
+    height: fit-content; /* Плашка не растягивается по высоте */
+
+    gap: .75rem;
+  }
+
+  /* Кнопки действий (Reply) улетают в правый верхний угол */
+  .comment__actions {
+    align-self: start; /* Прижимаем к верху карточки */
+
+    grid-area: actions;
+    justify-self: end;
+  }
+
+  /* Увеличиваем отступ для ветки ответов на десктопе, чтобы линия смотрелась изящнее */
+  .comment-branch__replies {
+    margin-left: 2.75rem;
+    padding-left: 2.75rem;
+  }
+
+  /* Перестраиваем форму отправки на десктопе */
+  .add-comment {
+    align-items: flex-start; /* Прижимаем элементы к верхнему краю */
+
+    grid-template-columns: auto 1fr auto; /* Аватар, текстовое поле, кнопка */
+    grid-template-areas: "avatar textarea button"; /* Всё встает в один ряд */
+    gap: 1rem;
+  }
+
+  .add-comment__avatar {
+    width: 2.5rem; /* Делаем аватарку чуть крупнее на десктопе */
+    height: 2.5rem;
+  }
+}
+
+/* footer */
+.attribution {
+  font-size: .6875rem;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
