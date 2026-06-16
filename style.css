@@ -192,70 +192,36 @@ body {
   color: var(--Purple-200); /* Становится светлее */
 }
 
-.add-comment__btn-send {
-  padding: .75rem 1.875rem; /* Это 12px сверху/снизу и 30px по бокам */
-  font-size: 1rem;
-  font-weight: 500; /* Делает текст кнопки более четким */
-  color: var(--White);
-  text-transform: uppercase; /* На случай, если в HTML случайно напишете строчными */
-  border-radius: .5rem; /* 8px-10px — визуально идеально для этого макета */
-  background-color: var(--Purple-600);
-  transition: background-color .2s ease; /* Плавный переход цвета */
+.comment__reply-to {
+  font-weight: 500;
+  color: var(--Purple-600);
 }
 
-/* Эффект при наведении мышки */
-.add-comment__btn-send:hover {
-  background-color: var(--Purple-200); /* Кнопка становится нежно-фиолетовой */
+.comment__actions {
+  display: flex;
+  align-items: center;
+
+  gap: 24px; /* Расстояние между кнопками Delete и Edit */
 }
 
-/* Контейнер формы добавления комментария */
-.add-comment {
-  display: grid;
-  align-items: center; /* Выравниваем аватарку и кнопку по вертикали */
-  padding: 1.5rem;
-  border-radius: .5rem;
-  background-color: var(--White);
+.comment__btn {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  white-space: nowrap; /* Запретит тексту переноситься на новую строку */
+  cursor: pointer;
 
-  grid-template-columns: 1fr 1fr; /* Две колонки для нижнего ряда */
-  grid-template-areas: "textarea textarea" /* Текстовое поле на всю ширину сверху */
-  "avatar   button";   /* Аватарка снизу слева, кнопка снизу справа */
-  gap: 1rem;
+  gap: 8px; /* Расстояние между иконкой и текстом внутри кнопки */
 }
 
-/* Привязываем элементы к сетке */
-.add-comment__input {
-  padding: .75rem 1rem;
-  width: 100%;
-  font-family: inherit;
-  font-size: 1rem;
-  color: var(--Grey-800);
-  border: 1px solid var(--Grey-100); /* Тонкая серая рамка */
-  border-radius: .5rem;
-  outline: none;
-  background-color: var(--White);
-  resize: vertical; /* Разрешаем растягивать поле только по вертикали */
-  transition: border-color .2s ease;
-
-  grid-area: textarea;
+/* Специфичные цвета для кнопок по макету */
+.comment__btn--delete {
+  color: var(--soft-red); /* или ваш цвет, например #ed6368 */
 }
 
-/* Эффект, когда пользователь кликает внутрь текстового поля (Фокус) */
-.add-comment__input:focus {
-  border-color: var(--Purple-600); /* Рамка становится фиолетовой */
-}
-
-.add-comment__avatar {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-
-  grid-area: avatar;
-  justify-self: start; /* Прижимаем влево */
-}
-
-.add-comment__btn-send {
-  grid-area: button;
-  justify-self: end; /* Прижимаем вправо */
+.comment__btn--edit,
+.comment__btn--reply {
+  color: var(--moderate-blue); /* или ваш цвет, например #5357b6 */
 }
 
 /* Контейнер для вложенных ответов */
@@ -276,6 +242,159 @@ body {
 /* Удалим нижний маргин у самого последнего ответа в ветке */
 .comment-branch__replies .comment:last-child {
   margin-bottom: 0;
+}
+
+.comment-form {
+  display: grid;
+  align-items: center; /* Выравниваем аватарку и кнопку по вертикали */
+  padding: 1.5rem;
+  border-radius: .5rem;
+  background-color: var(--White);
+
+  grid-template-columns: 1fr 1fr; /* Две колонки для нижнего ряда */
+  grid-template-areas: "textarea textarea" /* Текстовое поле на всю ширину сверху */
+  "avatar   button";   /* Аватарка снизу слева, кнопка снизу справа */
+  gap: 1rem;
+}
+
+.comment-form__avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+
+  grid-area: avatar;
+  justify-self: start; /* Прижимаем влево */
+}
+
+/* Привязываем элементы к сетке */
+.comment-form__textarea {
+  padding: .75rem 1rem;
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--Grey-800);
+  border: 1px solid var(--Grey-100); /* Тонкая серая рамка */
+  border-radius: .5rem;
+  outline: none;
+  background-color: var(--White);
+  resize: vertical; /* Разрешаем растягивать поле только по вертикали */
+  transition: border-color .2s ease;
+
+  grid-area: textarea;
+}
+
+/* Эффект, когда пользователь кликает внутрь текстового поля (Фокус) */
+.comment-form__textarea:focus {
+  border-color: var(--Purple-600); /* Рамка становится фиолетовой */
+}
+
+.comment-form__btn {
+  padding: .75rem 1.875rem; /* Это 12px сверху/снизу и 30px по бокам */
+  font-size: 1rem;
+  font-weight: 500; /* Делает текст кнопки более четким */
+  color: var(--White);
+  text-transform: uppercase; /* На случай, если в HTML случайно напишете строчными */
+  border-radius: .5rem; /* 8px-10px — визуально идеально для этого макета */
+  background-color: var(--Purple-600);
+  transition: background-color .2s ease; /* Плавный переход цвета */
+}
+
+/* Эффект при наведении мышки */
+.comment-form__btn:hover {
+  background-color: var(--Purple-200); /* Кнопка становится нежно-фиолетовой */
+}
+
+.comment__edit-block {
+  display: flex;
+  align-items: flex-end; /* Прижимает кнопку UPDATE вправо */
+  flex-direction: column;
+  margin-top: 8px;
+  width: 100%;
+
+  gap: 16px;
+}
+
+.comment__edit-textarea {
+  width: 100%; /* Растягиваем на всю ширину контента карточки */
+}
+
+/* Темный полупрозрачный фон на весь экран */
+.modal-overlay {
+  position: fixed;
+  z-index: 1000; /* Чтобы модалка была поверх всего */
+  top: 0;
+  left: 0;
+  display: flex;
+  visibility: visible;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, .5); /* Затемнение */
+  transition: opacity .3s ease, visibility .3s ease;
+}
+
+/* Класс-микровыключатель для скрытия модалки */
+.modal-overlay--hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none; /* Кнопки под ней не будут кликаться */
+}
+
+/* Белое окошко по центру */
+.modal-box {
+  padding: 32px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  background-color: var(--White, #ffffff);
+}
+
+.modal-box__title {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--Dark-blue, #324152);
+}
+
+.modal-box__text {
+  margin-bottom: 24px;
+  line-height: 1.5;
+  color: var(--Grey-800, #67727e);
+}
+
+/* Контейнер для двух кнопок */
+.modal-box__actions {
+  display: flex;
+
+  gap: 14px;
+}
+
+.modal-box__btn {
+  flex: 1; /* Кнопки будут одинаковой ширины */
+  padding: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.modal-box__btn:hover {
+  opacity: .7;
+}
+
+/* Серая кнопка отмены */
+.modal-box__btn--cancel {
+  background-color: var(--Grey-800, #67727e);
+}
+
+/* Красная кнопка подтверждения удаления */
+.modal-box__btn--confirm {
+  background-color: var(--Soft-red, #ed6368);
 }
 
 /* --- СТИЛИ ДЛЯ ДЕСКТОПА (Экраны от 768px и шире) --- */
@@ -323,9 +442,14 @@ body {
     gap: 1rem;
   }
 
-  .add-comment__avatar {
+  .comment-form__avatar {
     width: 2.5rem; /* Делаем аватарку чуть крупнее на десктопе */
     height: 2.5rem;
+  }
+
+  .comment-form__btn {
+    grid-area: button;
+    justify-self: end; /* Прижимаем вправо */
   }
 }
 

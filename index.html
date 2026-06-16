@@ -15,244 +15,41 @@
     <title>Frontend Mentor | Interactive comments section</title>
     <link rel="stylesheet" href="normalize.css" />
     <link rel="stylesheet" href="style.css" />
+    <script defer src="./main.js"></script>
   </head>
 
   <body>
     <!-- 1. Главный контейнер для всей страницы -->
-    <main class="comments-wrapper container">
-      <!-- 2. Первая ветка: одиночный комментарий (у Amy Robson нет ответов) -->
-      <div class="comment-branch">
-        <article class="comment">
-          <!-- 1. Рейтинг -->
-          <div class="comment__rating rating">
-            <button
-              type="button"
-              class="rating__btn rating__btn--plus btn-reset"
-              aria-label="Upvote"
-            >
-              <img src="./images/icon-plus.svg" alt="" />
-            </button>
-            <span class="rating__value">12</span>
-            <button
-              type="button"
-              class="rating__btn rating__btn--minus btn-reset"
-              aria-label="Downvote"
-            >
-              <img src="./images/icon-minus.svg" alt="" />
-            </button>
-          </div>
-
-          <!-- 2. Контент (Включает шапку и текст) -->
-          <div class="comment__content">
-            <div class="comment__header">
-              <img
-                class="comment__avatar"
-                src="./images/avatars/image-amyrobson.png"
-                alt="Amy Robson"
-              />
-              <span class="comment__username">amyrobson</span>
-              <span class="comment__date">1 month ago</span>
-            </div>
-            <p class="comment__text">
-              Impressive! Though it seems the drag feature could be improved.
-              But overall it looks incredible.
-            </p>
-          </div>
-
-          <!-- 3. Действия -->
-          <div class="comment__actions">
-            <button
-              type="button"
-              class="comment__btn comment__btn--reply btn-reset"
-            >
-              <img src="./images/icon-reply.svg" alt="" /> Reply
-            </button>
-          </div>
-        </article>
-      </div>
-
-      <!-- 3. Вторая ветка: комментарий с ответами (как у Max Blagun) -->
-      <div class="comment-branch">
-        <!-- Сам главный комментарий -->
-        <article class="comment">
-          <!-- 1. Рейтинг -->
-          <div class="comment__rating rating">
-            <button
-              type="button"
-              class="rating__btn rating__btn--plus btn-reset"
-              aria-label="Upvote"
-            >
-              <img src="./images/icon-plus.svg" alt="" />
-            </button>
-            <span class="rating__value">5</span>
-            <button
-              type="button"
-              class="rating__btn rating__btn--minus btn-reset"
-              aria-label="Downvote"
-            >
-              <img src="./images/icon-minus.svg" alt="" />
-            </button>
-          </div>
-
-          <!-- 2. Контент (Включает шапку и текст) -->
-          <div class="comment__content">
-            <div class="comment__header">
-              <img
-                class="comment__avatar"
-                src="./images/avatars/image-maxblagun.png"
-                alt="Max Blagun"
-              />
-              <span class="comment__username">maxblagun</span>
-              <span class="comment__date">2 weeks ago</span>
-            </div>
-            <p class="comment__text">
-              "Woah, your project looks awesome! How long have you been coding
-              for? I'm still new, but think I want to dive into React as well
-              soon. Perhaps you can give me an insight on where I can learn
-              React? Thanks!"
-            </p>
-          </div>
-
-          <!-- 3. Действия -->
-          <div class="comment__actions">
-            <button
-              type="button"
-              class="comment__btn comment__btn--reply btn-reset"
-            >
-              <img src="./images/icon-reply.svg" alt="" /> Reply
-            </button>
-          </div>
-        </article>
-
-        <!-- Список ответов внутри этой ветки -->
-        <div class="comment-branch__replies">
-          <article class="comment">
-            <!-- 1. Рейтинг -->
-            <div class="comment__rating rating">
-              <button
-                type="button"
-                class="rating__btn rating__btn--plus btn-reset"
-                aria-label="Upvote"
-              >
-                <img src="./images/icon-plus.svg" alt="" />
-              </button>
-              <span class="rating__value">4</span>
-              <button
-                type="button"
-                class="rating__btn rating__btn--minus btn-reset"
-                aria-label="Downvote"
-              >
-                <img src="./images/icon-minus.svg" alt="" />
-              </button>
-            </div>
-
-            <!-- 2. Контент (Включает шапку и текст) -->
-            <div class="comment__content">
-              <div class="comment__header">
-                <img
-                  class="comment__avatar"
-                  src="./images/avatars/image-ramsesmiron.png"
-                  alt="Ram Sesmiron"
-                />
-                <span class="comment__username">ramsesmiron</span>
-                <span class="comment__date">1 week ago</span>
-              </div>
-              <p class="comment__text">
-                If you're still new, I'd recommend focusing on the fundamentals
-                of HTML, CSS, and JS before considering React. It's very
-                tempting to jump ahead but lay a solid foundation first.
-              </p>
-            </div>
-
-            <!-- 3. Действия -->
-            <div class="comment__actions">
-              <button
-                type="button"
-                class="comment__btn comment__btn--reply btn-reset"
-              >
-                <img src="./images/icon-reply.svg" alt="" /> Reply
-              </button>
-            </div>
-          </article>
-          <!-- Ответ от Ramses -->
-          <article class="comment">
-            <!-- 1. Рейтинг -->
-            <div class="comment__rating rating">
-              <button
-                type="button"
-                class="rating__btn rating__btn--plus btn-reset"
-                aria-label="Upvote"
-              >
-                <img src="./images/icon-plus.svg" alt="" />
-              </button>
-              <span class="rating__value">2</span>
-              <button
-                type="button"
-                class="rating__btn rating__btn--minus btn-reset"
-                aria-label="Downvote"
-              >
-                <img src="./images/icon-minus.svg" alt="" />
-              </button>
-            </div>
-
-            <!-- 2. Контент (Включает шапку и текст) -->
-            <div class="comment__content">
-              <div class="comment__header">
-                <img
-                  class="comment__avatar"
-                  src="./images/avatars/image-juliusomo.png"
-                  alt="Juli Usomo"
-                />
-                <span class="comment__username">juliusomo</span>
-                <span class="comment__date">2 days ago</span>
-              </div>
-              <p class="comment__text">
-                I couldn't agree more with this. Everything moves so fast and it
-                always seems like everyone knows the newest library/framework.
-                But the fundamentals are what stay constant.
-              </p>
-            </div>
-
-            <!-- 3. Действия -->
-            <div class="comment__actions">
-              <button
-                type="button"
-                class="comment__btn comment__btn--reply btn-reset"
-              >
-                <img src="./images/icon-reply.svg" alt="" /> Reply
-              </button>
-            </div>
-          </article>
-          <!-- Ответ от Juliusomo -->
-        </div>
-      </div>
-
-      <!-- 4. Форма добавления нового комментария (в самом низу, отдельно от всех) -->
-      <form class="add-comment">
-        <img
-          class="add-comment__avatar"
-          src="./images/avatars/image-juliusomo.png"
-          alt="Juliusomo"
-          width="32"
-          height="32"
-        />
-        <textarea
-          class="add-comment__input"
-          name="comment-text"
-          placeholder="Add a comment..."
-          rows="3"
-          required
-        ></textarea>
-        <button type="submit" class="add-comment__btn-send btn-reset">
-          SEND
-        </button>
-      </form>
-    </main>
+    <main class="comments-wrapper container"></main>
 
     <footer class="attribution">
       Challenge by
       <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
       Coded by <a href="#">Snezana</a>.
     </footer>
+    <!-- Модальное окно подтверждения удаления -->
+    <div class="modal-overlay modal-overlay--hidden">
+      <div class="modal-box">
+        <h2 class="modal-box__title">Delete comment</h2>
+        <p class="modal-box__text">
+          Are you sure you want to delete this comment? This will remove the
+          comment and can't be undone.
+        </p>
+        <div class="modal-box__actions">
+          <button
+            type="button"
+            class="modal-box__btn modal-box__btn--cancel btn-reset"
+          >
+            NO, CANCEL
+          </button>
+          <button
+            type="button"
+            class="modal-box__btn modal-box__btn--confirm btn-reset"
+          >
+            YES, DELETE
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
