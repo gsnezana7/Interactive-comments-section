@@ -61,4 +61,4 @@ renderComments();
 ## Author
 
 - Frontend Mentor - [@gsnezana7](https://frontendmentor.io)
-- GitHub - [@gsnezana7](https://github.com)
+- GitHub - [@gsnezana7](https://github.com/repos)
