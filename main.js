@@ -38,7 +38,7 @@ async function initApp() {
     // Отрисовываем интерфейс
     saveToLocalStorage();
     renderComments();
-    renderMainForm();
+    // renderMainForm();
 
   } catch (error) {
     console.error("Не удалось запустить приложение:", error);
@@ -158,6 +158,7 @@ function renderComments() {
 
   // Вставляем всё в DOM за один раз
   commentsWrapper.appendChild(documentFragment);
+   renderMainForm(); 
 }
 
 // --- 6. ШАБЛОН ДЛЯ ГЛАВНОЙ ФОРМЫ ОТПРАВКИ ---
@@ -173,7 +174,7 @@ function renderMainForm() {
     </form>
   `;
 
-  commentsWrapper.insertAdjacentHTML('afterend', formHTML);
+    commentsWrapper.insertAdjacentHTML('beforeend', formHTML);
 
   // Находим только что созданную форму и её элементы
   const form = document.querySelector('.comment-form--main');
