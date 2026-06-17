@@ -1,5 +1,5 @@
 // --- 1. СОСТОЯНИЕ ПРИЛОЖЕНИЯ (STATE) ---
-let appData = null; // Здесь мы будем хранить весь объект из data.json
+let appData = null; // Здесь хранится весь объект из data.json
 
 // --- 2. ДОМ-ЭЛЕМЕНТЫ ---
 const commentsWrapper = document.querySelector('.comments-wrapper');
@@ -11,7 +11,6 @@ const confirmModalBtn = document.querySelector('.modal-box__btn--confirm');
 // Временные переменные для хранения ID карточки, которую хотим удалить
 let idToDelete = null;
 
-// --- 3. АСИНХРОННАЯ ЗАГРУЗКА ДАННЫХ ---
 // --- 3. АСИНХРОННАЯ ЗАГРУЗКА ДАННЫХ ---
 async function initApp() {
   try {
@@ -38,7 +37,6 @@ async function initApp() {
     // Отрисовываем интерфейс
     saveToLocalStorage();
     renderComments();
-    // renderMainForm();
 
   } catch (error) {
     console.error("Не удалось запустить приложение:", error);
@@ -46,9 +44,6 @@ async function initApp() {
 }
 
 
-
-
-// --- 4. ШАБЛОН ДЛЯ ОДНОЙ КАРТОЧКИ КОММЕНТАРИЯ ---
 // --- 4. ШАБЛОН ДЛЯ ОДНОЙ КАРТОЧКИ КОММЕНТАРИЯ ---
 function createCommentHTML(comment) {
   // Проверяем, является ли комментарий ответом
@@ -56,14 +51,14 @@ function createCommentHTML(comment) {
     ? `<span class="comment__reply-to">@${comment.replyingTo} </span>` 
     : '';
 
-  // Проверяем, принадлежит ли комментарий текущему пользователю (вам)
+  // Проверяем, принадлежит ли комментарий текущему пользователю 
   const isCurrentUser = comment.user.username === appData.currentUser.username;
 
   // Формируем блок кнопок в зависимости от автора комментария
   let actionsHTML = '';
   
   if (isCurrentUser) {
-    // Если это наш комментарий — выводим кнопки "Delete" и "Edit"
+    // Если это комментарий текущего пользователя — выводим кнопки "Delete" и "Edit"
     actionsHTML = `
       <button type="button" class="comment__btn comment__btn--delete btn-reset">
         <img src="./images/icon-delete.svg" alt=""> Delete
@@ -73,7 +68,7 @@ function createCommentHTML(comment) {
       </button>
     `;
   } else {
-    // Если чужой — оставляем стандартную кнопку "Reply"
+    // Если нет— оставляем стандартную кнопку "Reply"
     actionsHTML = `
       <button type="button" class="comment__btn comment__btn--reply btn-reset">
         <img src="./images/icon-reply.svg" alt=""> Reply
@@ -123,7 +118,7 @@ function renderComments() {
   // Сортируем главные комментарии по количеству лайков (score) от большего к меньшему
   const sortedComments = [...appData.comments].sort((a, b) => b.score - a.score);
 
-  // Создаем виртуальный фрагмент для оптимизации (как в прошлом проекте!)
+  // Создаем виртуальный фрагмент для оптимизации 
   const documentFragment = document.createDocumentFragment();
 
   sortedComments.forEach(comment => {
@@ -136,7 +131,7 @@ function renderComments() {
 
     // Проверяем, есть ли у этого комментария ответы (replies)
     if (comment.replies && comment.replies.length > 0) {
-      // Сортируем ответы по времени/id (в ТЗ сказано: в порядке добавления)
+      // Сортируем ответы по времени/id 
       const sortedReplies = [...comment.replies].sort((a, b) => a.id - b.id);
 
       branchHTML += `<div class="comment-branch__replies">`;
@@ -161,7 +156,6 @@ function renderComments() {
    renderMainForm(); 
 }
 
-// --- 6. ШАБЛОН ДЛЯ ГЛАВНОЙ ФОРМЫ ОТПРАВКИ ---
 // --- 6. ШАБЛОН И ЛОГИКА ГЛАВНОЙ ФОРМЫ ОТПРАВКИ ---
 function renderMainForm() {
   if (document.querySelector('.comment-form--main')) return;
@@ -176,7 +170,7 @@ function renderMainForm() {
 
     commentsWrapper.insertAdjacentHTML('beforeend', formHTML);
 
-  // Находим только что созданную форму и её элементы
+  // Находим созданную форму и её элементы
   const form = document.querySelector('.comment-form--main');
   const textarea = form.querySelector('.comment-form__textarea');
 
@@ -191,13 +185,13 @@ function renderMainForm() {
     const newComment = {
       id: Date.now(), // Генерируем уникальный ID на основе текущего времени
       content: commentText,
-      createdAt: "Just now", // По ТЗ для новых комментариев пишем статичную строку
+      createdAt: "Just now", // для новых комментариев пишем статичную строку
       score: 0, // У нового комментария всегда 0 лайков
-      user: appData.currentUser, // Автор — наш текущий пользователь
+      user: appData.currentUser, // Автор —  текущий пользователь
       replies: [] // На этот комментарий пока никто не ответил, массив пустой
     };
 
-    // Добавляем наш новый комментарий в общий массив данных приложения
+    // Добавляем новый комментарий в общий массив данных приложения
     appData.comments.push(newComment);
 saveToLocalStorage();
     // Перерисовываем список комментариев на странице, чтобы увидеть изменения
@@ -208,7 +202,7 @@ saveToLocalStorage();
   });
 }
 
-// --- 7. ДЕЛЕГИРОВАНИЕ СОБЫТИЙ: КЛИК ПО КНОПКЕ REPLY ---
+
 // --- 7. ДЕЛЕГИРОВАНИЕ СОБЫТИЙ: REPLY (ОТКРЫТИЕ И ОТПРАВКА) ---
 commentsWrapper.addEventListener('click', (e) => {
   const replyBtn = e.target.closest('.comment__btn--reply');
@@ -242,7 +236,7 @@ commentsWrapper.addEventListener('click', (e) => {
   textarea.focus();
   textarea.setSelectionRange(textarea.value.length, textarea.value.length);
 
-  // --- НОВАЯ ЧАСТЬ: Обработка отправки формы ответа ---
+  // ---Обработка отправки формы ответа ---
   replyForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -264,7 +258,7 @@ commentsWrapper.addEventListener('click', (e) => {
       createdAt: "Just now",
       score: 0,
       replyingTo: usernameToReply, // Кому отвечаем
-      user: appData.currentUser // Автор — вы
+      user: appData.currentUser // Автор 
     };
 
     // Ищем в appData главный комментарий (или ветку), к которому относится этот ответ
@@ -298,7 +292,7 @@ commentsWrapper.addEventListener('click', (e) => {
   // Запоминаем ID элемента, который собираемся удалить
   idToDelete = Number(commentElement.dataset.id);
 
-  // Показываем красивую модалку (просто убираем скрывающий класс)
+  // Показываем  модалку (просто убираем скрывающий класс)
   modalOverlay.classList.remove('modal-overlay--hidden');
 });
 
@@ -378,7 +372,7 @@ commentsWrapper.addEventListener('click', (e) => {
     if (plusBtn) {
       targetComment.score += 1;
     } else if (minusBtn) {
-      // Рейтинг не должен падать ниже 0 (по желанию, обычно в макетах ниже нуля не уводят)
+      // Рейтинг не должен падать ниже 0
       if (targetComment.score > 0) {
         targetComment.score -= 1;
       }
@@ -405,7 +399,7 @@ commentsWrapper.addEventListener('click', (e) => {
     const textElement = commentElement.querySelector('.comment__text');
     
     // Получаем чистый текст без тега @username (если это был ответ)
-    // Для этого просто временно уберем спан с тегом из выборки, если он есть
+    // Для этого  временно уберем спан с тегом из выборки, если он есть
     const replyTagElement = textElement.querySelector('.comment__reply-to');
     const originalText = replyTagElement 
       ? textElement.textContent.replace(replyTagElement.textContent, '').trim()
@@ -460,7 +454,6 @@ commentsWrapper.addEventListener('click', (e) => {
 
 // --- 11. СОХРАНЕНИЕ ДАННЫХ В LOCALSTORAGE ---
 function saveToLocalStorage() {
-  // LocalStorage умеет хранить только строки, поэтому превращаем наш объект в строку JSON
   localStorage.setItem('interactive_comments_data', JSON.stringify(appData));
 }
 
