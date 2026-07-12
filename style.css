@@ -102,7 +102,7 @@ body {
 /* --- 3. КАРТОЧКА КОММЕНТАРИЯ (МОБИЛЬНАЯ ВЕРСИЯ) --- */
 .comment {
   display: grid;
-  padding: 1rem;
+  padding: clamp(.75rem, 3vw, 1rem);
   border-radius: .5rem;
   background-color: var(--White);
 
@@ -299,7 +299,7 @@ body {
 /* --- 7. БЛОК РЕДАКТИРОВАНИЯ (EDIT & UPDATE) --- */
 .comment__edit-block {
   display: flex;
-  align-items: inline-end;
+  align-items: end;
   flex-direction: column;
   width: 100%;
 
