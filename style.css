@@ -1,6 +1,7 @@
 /* --- 1. ПЕРЕМЕННЫЕ И ШРИФТЫ --- */
+
 :root {
-  --font-family: "Rubik";
+  --font-family: "Rubik", sans-serif;
   --font-size: 1rem;
 
   --Purple-600: hsl(238, 40%, 52%);
@@ -12,6 +13,8 @@
   --Grey-100: hsl(223, 19%, 93%);
   --Grey-50: hsl(228, 33%, 97%);
   --White: hsl(0, 100%, 100%);
+  /* Переменная для фона модального окна */
+  --overlay-color: rgba(0, 0, 0, .5);
 }
 
 @font-face {
@@ -19,6 +22,21 @@
 
   src: url("fonts/Rubik-VariableFont_wght.woff2") format("woff2-variations");
   font-display: swap;
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+  border: 0;
+
+  margin-block: -1px;
+  margin-inline: -1px;
+  clip-path: inset(100%);
 }
 
 /* --- 2. БАЗОВЫЕ СБРОСЫ СТИЛЕЙ --- */
@@ -52,10 +70,10 @@ a {
 }
 
 .list-reset {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 0;
   list-style: none;
+
+  margin-block: 0;
+  padding-inline-start: 0;
 }
 
 body {
@@ -64,32 +82,32 @@ body {
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  font-family: var(--font-family), sans-serif;
+  font-family: var(--font-family);
   font-size: var(--font-size);
   color: var(--Grey-500);
   background-color: var(--Grey-50);
 }
 
 .container {
-  padding-inline: 1.13rem;
+  padding-inline: clamp(1rem, 5vw, 1.13rem);
 }
 
 .comments-wrapper {
   width: 100%;
-  max-width: 45.625rem; /* Около 730px — идеальная ширина макета */
+  max-width: 45.625rem;
 
-  padding-block: 2rem;  /* Отступы сверху и снизу всей страницы */
+  padding-block: 2rem;
 }
 
 /* --- 3. КАРТОЧКА КОММЕНТАРИЯ (МОБИЛЬНАЯ ВЕРСИЯ) --- */
 .comment {
   display: grid;
-  margin-bottom: 1rem;
   padding: 1rem;
   border-radius: .5rem;
   background-color: var(--White);
 
-  grid-template-columns: 1fr 1fr; /* Две равные колонки для подвала */
+  margin-block-end: 1rem;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas: "header header"
   "text text"
   "rating actions";
@@ -103,8 +121,8 @@ body {
 .comment__header {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
 
+  margin-block-end: 1rem;
   gap: 1rem;
 }
 
@@ -120,12 +138,12 @@ body {
 }
 
 .comment__badge {
-  padding: 2px 6px;
+  padding: .125rem .375rem;
   font-size: .8125rem;
   font-weight: 500;
   color: var(--White);
   text-transform: lowercase;
-  border-radius: 2px;
+  border-radius: .125rem;
   background-color: var(--Purple-600);
 }
 
@@ -134,9 +152,10 @@ body {
 }
 
 .comment__text {
-  margin: 0;
   line-height: 1.5;
   color: var(--Grey-500);
+
+  margin-block: 0;
 }
 
 .comment__reply-to {
@@ -147,7 +166,7 @@ body {
 /* --- 4. ПОДВАЛ КАРТОЧКИ (РЕЙТИНГ И КНОПКИ) --- */
 .comment__rating {
   grid-area: rating;
-  justify-self: start; /* Прижимаем к левому краю */
+  justify-self: inline-start;
 }
 
 .comment__actions {
@@ -155,8 +174,8 @@ body {
   align-items: center;
 
   grid-area: actions;
-  justify-self: end; /* Прижимаем к правому краю */
-  gap: 24px; /* Расстояние между кнопками управления */
+  justify-self: inline-end;
+  gap: 1.5rem;
 }
 
 .rating {
@@ -175,11 +194,6 @@ body {
   justify-content: center;
   width: 1rem;
   height: 1rem;
-  transition: opacity .2s ease;
-}
-
-.rating__btn:hover {
-  opacity: .7;
 }
 
 .rating__value {
@@ -188,21 +202,15 @@ body {
   color: var(--Purple-600);
 }
 
-/* Кнопки управления (Reply, Delete, Edit) */
 .comment__btn {
   display: inline-flex;
   align-items: center;
   font-size: 1rem;
   font-weight: 500;
-  white-space: nowrap; /* Запрет переноса текста кнопок */
+  white-space: nowrap;
   cursor: pointer;
-  transition: color .2s ease, opacity .2s ease;
 
-  gap: 8px;
-}
-
-.comment__btn:hover {
-  opacity: .7;
+  gap: .5rem;
 }
 
 .comment__btn--delete {
@@ -214,27 +222,23 @@ body {
   color: var(--Purple-600);
 }
 
-.comment__btn--reply:hover,
-.comment__btn--edit:hover {
-  color: var(--Purple-200);
-}
-
 /* --- 5. ВЕТКИ ОТВЕТОВ --- */
 .comment-branch__replies {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
-  margin-left: 1rem; /* Отступ линии от левого края */
-  padding-left: 1rem; /* Смещение ветки ответов вправо */
-  border-left: 2px solid var(--Grey-100); /* Вертикальная серая линия */
+
+  margin-block-end: 1rem;
+  margin-inline-start: 1rem;
+  padding-inline-start: 1rem;
+  border-inline-start: .125rem solid var(--Grey-100);
 }
 
 .comment-branch__replies .comment {
-  margin-bottom: 1rem;
+  margin-block-end: 1rem;
 }
 
 .comment-branch__replies .comment:last-child {
-  margin-bottom: 0; /* Удаляем отступ у последнего ответа в ветке */
+  margin-block-end: 0;
 }
 
 /* --- 6. ФОРМА ОТПРАВКИ (МОБИЛЬНАЯ ВЕРСИЯ) --- */
@@ -257,7 +261,7 @@ body {
   border-radius: 50%;
 
   grid-area: avatar;
-  justify-self: start;
+  justify-self: inline-start;
 }
 
 .comment-form__textarea {
@@ -266,12 +270,11 @@ body {
   font-family: inherit;
   font-size: 1rem;
   color: var(--Grey-800);
-  border: 1px solid var(--Grey-100);
+  border: .0625rem solid var(--Grey-100);
   border-radius: .5rem;
   outline: none;
   background-color: var(--White);
   resize: vertical;
-  transition: border-color .2s ease;
 
   grid-area: textarea;
 }
@@ -288,24 +291,19 @@ body {
   text-transform: uppercase;
   border-radius: .5rem;
   background-color: var(--Purple-600);
-  transition: background-color .2s ease;
 
   grid-area: button;
-  justify-self: end;
-}
-
-.comment-form__btn:hover {
-  background-color: var(--Purple-200);
+  justify-self: inline-end;
 }
 
 /* --- 7. БЛОК РЕДАКТИРОВАНИЯ (EDIT & UPDATE) --- */
 .comment__edit-block {
   display: flex;
-  align-items: flex-end;
+  align-items: inline-end;
   flex-direction: column;
   width: 100%;
 
-  gap: 16px;
+  gap: 1rem;
 }
 
 .comment__edit-textarea {
@@ -316,18 +314,18 @@ body {
 .modal-overlay {
   position: fixed;
   z-index: 1000;
-  top: 0;
-  left: 0;
   display: flex;
   visibility: visible;
+  overflow-y: auto;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 1rem;
   width: 100%;
   height: 100%;
-  opacity: 1;
-  background-color: rgba(0, 0, 0, .5);
-  transition: opacity .3s ease, visibility .3s ease;
+  max-height: 100vh;
+  background-color: var(--overlay-color);
+
+  inset: 0;
 }
 
 .modal-overlay--hidden {
@@ -337,46 +335,43 @@ body {
 }
 
 .modal-box {
-  padding: 32px;
+  padding: 2rem;
   width: 100%;
-  max-width: 400px;
-  border-radius: 8px;
+  max-width: 25rem;
+  border-radius: .5rem;
   background-color: var(--White);
 }
 
 .modal-box__title {
-  margin-top: 0;
-  margin-bottom: 20px;
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--Grey-800);
+
+  margin-block-start: 0;
+  margin-block-end: 1.25rem;
 }
 
 .modal-box__text {
-  margin-bottom: 24px;
   line-height: 1.5;
   color: var(--Grey-500);
+
+  margin-block-end: 1.5rem;
 }
 
 .modal-box__actions {
   display: flex;
 
-  gap: 14px;
+  gap: .875rem;
 }
 
 .modal-box__btn {
   flex: 1;
-  padding: 14px;
+  padding: .875rem;
   font-weight: 500;
   color: var(--White);
   text-transform: uppercase;
-  border-radius: 8px;
+  border-radius: .5rem;
   cursor: pointer;
-  transition: opacity .2s ease;
-}
-
-.modal-box__btn:hover {
-  opacity: .7;
 }
 
 .modal-box__btn--cancel {
@@ -387,11 +382,37 @@ body {
   background-color: var(--Pink-400);
 }
 
-/* --- 9. АДАПТИВНЫЕ СТИЛИ ДЛЯ ДЕСКТОПА --- */
-@media (min-width: 48rem) {
-  /* 768px */
+/* --- 9. ДОСТУПНОСТЬ АНИМАЦИЙ (Prefers-reduced-motion) --- */
+/* Этот блок отвечает за плавность ховеров ТОЛЬКО у тех пользователей, которые не отключали анимации в системе */
+@media (prefers-reduced-motion: no-preference) {
+  .rating__btn,
+  .comment__btn,
+  .comment-form__textarea,
+  .comment-form__btn,
+  .modal-box__btn,
+  .modal-overlay {
+    transition: opacity .2s ease, color .2s ease, border-color .2s ease, background-color .2s ease, visibility .3s ease;
+  }
 
-  /* Трансформируем сетку карточки комментария в один ряд */
+  .rating__btn:hover,
+  .comment__btn:hover,
+  .modal-box__btn:hover {
+    opacity: .7;
+  }
+
+  .comment__btn--reply:hover,
+  .comment__btn--edit:hover {
+    color: var(--Purple-200);
+  }
+
+  .comment-form__btn:hover {
+    background-color: var(--Purple-200);
+  }
+}
+
+/* --- 10. АДАПТИВНЫЕ СТИЛИ ДЛЯ ДЕСКТОПА --- */
+/* Все изменения для больших экранов строго в самом конце файла */
+@media (min-width: 48rem) {
   .comment {
     padding: 1.5rem;
 
@@ -400,7 +421,6 @@ body {
     gap: 1.5rem;
   }
 
-  /* Рейтинг становится вертикальным столбцом слева */
   .comment__rating {
     flex-direction: column;
     padding: .75rem .5rem;
@@ -409,21 +429,18 @@ body {
     gap: .75rem;
   }
 
-  /* Кнопки действий прижимаются к верхнему правому углу */
   .comment__actions {
     align-self: start;
 
     grid-area: actions;
-    justify-self: end;
+    justify-self: inline-end;
   }
 
-  /* Расширяем ветку ответов на десктопе */
   .comment-branch__replies {
-    margin-left: 2.75rem;
-    padding-left: 2.75rem;
+    margin-inline-start: clamp(1.5rem, 5vw, 2.75rem);
+    padding-inline-start: clamp(1.5rem, 5vw, 2.75rem);
   }
 
-  /* Горизонтальный вид для главной формы (SEND) и формы ответа (REPLY) */
   .comment-form {
     align-items: start;
 
@@ -445,7 +462,7 @@ body {
   }
 }
 
-/* --- 10. ПОДВАЛ С АВТОРСТВОМ --- */
+/* --- 11. ПОДВАЛ С АВТОРСТВОМ --- */
 .attribution {
   font-size: .6875rem;
   text-align: center;
@@ -455,4 +472,5 @@ body {
 
 .attribution a {
   color: var(--Purple-600);
+  text-decoration: underline;
 }
