@@ -96,7 +96,7 @@ body {
   width: 100%;
   max-width: 45.625rem;
 
-  padding-block: 2rem;
+  padding-block: clamp(1rem, 4vh, 2rem); /* Теперь отступ идеально адаптируется */
 }
 
 /* --- 3. КАРТОЧКА КОММЕНТАРИЯ (МОБИЛЬНАЯ ВЕРСИЯ) --- */
@@ -166,7 +166,7 @@ body {
 /* --- 4. ПОДВАЛ КАРТОЧКИ (РЕЙТИНГ И КНОПКИ) --- */
 .comment__rating {
   grid-area: rating;
-  justify-self: inline-start;
+  justify-self: start;
 }
 
 .comment__actions {
@@ -174,7 +174,7 @@ body {
   align-items: center;
 
   grid-area: actions;
-  justify-self: inline-end;
+  justify-self: end;
   gap: 1.5rem;
 }
 
@@ -245,7 +245,7 @@ body {
 .comment-form {
   display: grid;
   align-items: center;
-  padding: 1.5rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
   border-radius: .5rem;
   background-color: var(--White);
 
@@ -261,7 +261,7 @@ body {
   border-radius: 50%;
 
   grid-area: avatar;
-  justify-self: inline-start;
+  justify-self: start;
 }
 
 .comment-form__textarea {
@@ -293,7 +293,7 @@ body {
   background-color: var(--Purple-600);
 
   grid-area: button;
-  justify-self: inline-end;
+  justify-self: end;
 }
 
 /* --- 7. БЛОК РЕДАКТИРОВАНИЯ (EDIT & UPDATE) --- */
@@ -335,7 +335,7 @@ body {
 }
 
 .modal-box {
-  padding: 2rem;
+  padding: clamp(1.5rem, 5vw, 2rem);
   width: 100%;
   max-width: 25rem;
   border-radius: .5rem;
@@ -414,7 +414,7 @@ body {
 /* Все изменения для больших экранов строго в самом конце файла */
 @media (min-width: 48rem) {
   .comment {
-    padding: 1.5rem;
+    padding: clamp(1rem, 3vw, 1.5rem);
 
     grid-template-columns: auto 1fr auto;
     grid-template-areas: "rating text actions";
@@ -433,7 +433,7 @@ body {
     align-self: start;
 
     grid-area: actions;
-    justify-self: inline-end;
+    justify-self: end;
   }
 
   .comment-branch__replies {
