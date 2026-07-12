@@ -109,11 +109,16 @@ function createCommentHTML(comment) {
     </article>
   `;
 }
-
 // --- 5. ФУНКЦИЯ ОТРИСОВКИ ВСЕХ КОММЕНТАРИЕВ ---
 function renderComments() {
-  // Очищаем контейнер перед новой отрисовкой
+  // 1. Очищаем контейнер перед новой отрисовкой (здесь стирается старый h1)
   commentsWrapper.innerHTML = '';
+
+  // 2. ДОБАВЛЕНО: Сразу после очистки создаем и возвращаем h1 на место
+  const mainTitle = document.createElement('h1');
+  mainTitle.className = 'visually-hidden';
+  mainTitle.textContent = 'Interactive comments section';
+  commentsWrapper.appendChild(mainTitle); // Добавляем заголовок в самое начало
 
   // Сортируем главные комментарии по количеству лайков (score) от большего к меньшему
   const sortedComments = [...appData.comments].sort((a, b) => b.score - a.score);
@@ -151,10 +156,11 @@ function renderComments() {
     documentFragment.appendChild(branchContainer);
   });
 
-  // Вставляем всё в DOM за один раз
+  // Вставляем всё в DOM за один раз (теперь карточки встанут аккуратно после h1)
   commentsWrapper.appendChild(documentFragment);
-   renderMainForm(); 
+  renderMainForm(); 
 }
+
 
 // --- 6. ШАБЛОН И ЛОГИКА ГЛАВНОЙ ФОРМЫ ОТПРАВКИ ---
 function renderMainForm() {
