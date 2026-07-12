@@ -472,5 +472,5 @@ body {
 
 .attribution a {
   color: var(--Purple-600);
-  text-decoration: underline;
+  text-decoration: underline; /* Обязательно должно быть включено */
 }
